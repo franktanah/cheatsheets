@@ -17,7 +17,10 @@ ffmpeg -r 30 -f avfoundation -i "0" -y out.mov
 
 create RTP stream from device
 
-ffmpeg -r 30 -f avfoundation -i "0" -sdp_file stream.sdp -f rtp rtp://0.0.0.0:12345
+( ffmpeg -r 30 -f avfoundation -i "0" -sdp_file stream.sdp -f rtp rtp://0.0.0.0:12345 ) 
+
+ffmpeg -framerate 30 -f avfoundation -i "default" -vcodec libx264 -tune zerolatency -vf scale=1920:1080 -b 900k -sdp_file stream.sdp -f rtp "rtp://127.0.0.1:5600"
+
 
 ### Start an RTP server locally
 
