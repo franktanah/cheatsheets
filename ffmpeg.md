@@ -16,6 +16,10 @@ ffmpeg -f avfoundation -list_devices true -i ""
 
 ffmpeg -r 30 -f avfoundation -i "0" -y out.mov
 
+#### record 5 seconds
+
+ffmpeg -r 30 -f avfoundation -i "0" -pix_fmt yuv420p -r 25 -t 5 out.mov
+
 #### create RTP stream from device
 
 ( ffmpeg -r 30 -f avfoundation -i "0" -sdp_file stream.sdp -f rtp rtp://0.0.0.0:12345 ) 
