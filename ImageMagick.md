@@ -30,3 +30,7 @@ convert in.png -negate out.png
 
 ### Polaroid effect
 convert -caption "my text" ext.jpg -gravity center            -background black +polaroid polaroid.png
+
+### Create Animated Image
+
+convert -delay 20 -loop 0 frame*gif animated.gif
