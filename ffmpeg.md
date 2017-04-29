@@ -34,3 +34,6 @@ ffmpeg -r 30 -f avfoundation -i "0" -frames 1 s.png
 ### Start an RTP server locally
 
 ffmpeg -re -f lavfi -i aevalsrc="sin(400*2*PI*t)" -ar 8000 -f mulaw -f rtp rtp://127.0.0.1:1234
+
+Droicam get one frame
+http://192.168.1.106:4747/cam/1/frame.jpg
