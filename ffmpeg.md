@@ -12,7 +12,12 @@ ffmpeg -i rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_4
 ffmpeg -f avfoundation -list_devices true -i ""
 
 then record the first device to file
-ffmpeg -f avfoundation -i "1" out.mpg
+
+ffmpeg -r 30 -f avfoundation -i "0" -y out.mov
+
+create RTP stream from device
+
+ffmpeg -r 30 -f avfoundation -i "0" -f rtp rtp://0.0.0.0:12345
 
 ### Start an RTP server locally
 
