@@ -4,22 +4,27 @@ ffmpeg -i funfair.mp4 -vf fps=1 out%d.png
 
 ### capture livestream and save into 10 second segments
 
-ffmpeg -i rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4 -c copy -map 0 -f segment -segment_time 10 -segment_format mp4 "capture-%03d.mp4
+ffmpeg -i rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4 -c copy -map 0 -f segment -segment_time 10 -segment_format mp4 "capture-%03d.mp4"
 
 
-### List media devices
+### OSX FaceTime Camera
 
+#### get devices
 ffmpeg -f avfoundation -list_devices true -i ""
 
-then record the first device to file
+#### then record the first device to file
 
 ffmpeg -r 30 -f avfoundation -i "0" -y out.mov
 
-create RTP stream from device
+#### create RTP stream from device
 
 ( ffmpeg -r 30 -f avfoundation -i "0" -sdp_file stream.sdp -f rtp rtp://0.0.0.0:12345 ) 
 
 ffmpeg -framerate 30 -f avfoundation -i "default" -vcodec libx264 -tune zerolatency -vf scale=1920:1080 -b 900k -sdp_file stream.sdp -f rtp "rtp://127.0.0.1:5600"
+
+#### take a pic using Facetime camera
+
+ffmpeg -r 30 -f avfoundation -i "0" -frames 1 s.png
 
 
 ### Start an RTP server locally
