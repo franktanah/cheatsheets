@@ -34,6 +34,9 @@ convert in.png -negate out.png
 
 ### Polaroid effect
 convert -caption "my text" ext.jpg -gravity center            -background black +polaroid polaroid.png
+#### smaller ones
+convert $d -geometry 200x200 -gravity center -background black +polaroid polaroid.png
+
 
 ### Create Animated Image
 
