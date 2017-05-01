@@ -1,5 +1,9 @@
 # ImageMagick
 
+
+### Create an empty image
+convert -size 800x800 xc:white out.png
+
 ### Replace color - white to beige, allow 10% fuzz
 `convert s1.png -fuzz 10% -fill "#F2F1DD" -opaque "#FFFFF" s2.png`
 
@@ -34,3 +38,12 @@ convert -caption "my text" ext.jpg -gravity center            -background black 
 ### Create Animated Image
 
 convert -delay 20 -loop 0 frame*gif animated.gif
+
+### OSX imagesnap (with brew)
+
+#### take one
+imagesnap -w 1 snapshot.png
+
+#### take one every second
+imagesnap -t 1 -w 1
+
