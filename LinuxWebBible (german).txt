@@ -1,0 +1,1217 @@
+
+
+ crypt <xfile key > clearfile
+
+
+ ####################################################
+ #(@) Variablen um Inhalte kuerzen
+ ####################################################
+ export myfile="hallo.txt"
+
+ export basefile=${myfile%.txt}
+ --> basefile="hallo"
+ export endung=${myfile#*.}
+ --> endung="txt"
+
+ ####################################################
+ #(@) Telnet in Shell-Script
+ ####################################################
+
+ !/bin/sh 
+      # 
+      # Usage: stelnet routername 
+      # 
+      # If ping reachable (Under Solaris 2.5.x) 
+      if ping $1 3 
+      then 
+      { 
+      echo mypasswd # Access password 
+      sleep 2       # wait 2 seconds for answer 
+      echo en       # Enable mode 
+      sleep 2 
+      echo IamGod   # Enable password 
+      sleep 2 
+      echo sh run   # show running-config 
+      sleep 2 
+      echo exit     # logout of the router. 
+      } | telnet $1 
+      fi 
+
+ 	oder Linux-Befehl: expect
+
+ ####################################################
+ #(@) FTP in Shell-Script
+ ####################################################
+
+ ftp -in HOST <<last_line 
+ user USERNAME   PASSWORD 
+ get  FILENAME 
+ put FILENAME 
+ quit 
+ last_line 
+
+
+ xhc -ljet -dlaserj550zi174
+
+ ####################################################
+ XTERM-Titel dynamisch setzen
+ ####################################################
+
+ echo "\033]0;Bla\007"
+
+
+ #########################
+ Schleifen
+ #########################
+ anz=1
+
+ while [ $anz -lt 50 ]
+ do
+         echo BLA $anz
+         anz=$(($anz+1))
+ done;
+ ~
+
+ #######################
+ Linebreaks ersetzen
+ #######################
+ cat $file | tr ["\n"] "^" 
+
+
+ #######################
+ Teile ersetzen durch Inhalt eines Files
+ #######################
+ echo BLUB | perl -pe 's/U/`cat myfile`/eg'
+
+ ######################
+ Find Inhalt
+ ######################
+ find . -type f -exec grep $2 {} \;
+
+ ######################
+ Tags loeschen
+ ######################
+ echo "<TAG1>text text text <TAG2> text_end" | sed -e 's/<[^>]*>//g' 
+ ---> text text text  text_end
+
+
+ ######################
+ Datei zeilenweise einlesen
+ ######################
+
+ while read zeile
+ do
+   echo $zeile
+ done < dateiname
+
+
+ ########################
+ Shell Parsing
+ ########################
+ $parameter="amanuensis"
+
+ ${#parameter} - return length of the parameter value. 
+ EXAMPLE: ${#parameter} = 10 
+
+ ${parameter#word} - cut shortest match from start of parameter. 
+ EXAMPLE: ${parameter#*n} = uensis 
+
+ ${parameter##word} - cut longest match from start of parameter. 
+ EXAMPLE: ${parameter#*n} = sis 
+
+ ${parameter%word} - cut shortest match from end of parameter. 
+ EXAMPLE: ${parameter%n*} = amanue 
+
+ ${parameterword} - cut longest match from end of parameter. 
+ EXAMPLE: ${parametern*} = ama 
+
+ ${parameter:offset} - return parameter starting at 'offset'. 
+ EXAMPLE: ${parameter:7} = sis 
+
+ ${parameter:offset:length} - return 'length' characters of parameter 
+ starting at 'offset'. 
+ EXAMPLE: ${parameter:1:3} = man 
+
+ ${parameter/pattern/string} - replace single match. 
+ EXAMPLE: ${parameter/amanuen/paralip} = paralipsis 
+
+ ${parameter//pattern/string} - replace all matches. 
+ EXAMPLE: ${parameter//a/A} = AmAnuensis (For the last two operations, if the pattern begins with #, it will match at the beginning of the string; if it begins with %, it will match at the end. If the string is empty, matches will be deleted.) 
+
+ ##########################
+ MySQL: DB-Dump
+ ##########################
+ mysqldump -u username --password=pass database_name table1 table2
+
+
+ #####################
+ MySQL im Batch
+ #####################
+
+ mysql -pPASSWORD -u USERNAME -B -h localhost DB_NAME << EOD
+
+ select * from bla;
+ EOD
+
+
+ #####################
+ MySQL: User
+ #####################
+ Passwort �ndern
+ set password for mih07_rotz@localhost=PASSWORD('rotz');
+
+ Grant
+ grant select on mih07_test.* to mih07_babo@localhost;
+
+ #########################
+ TR: Alle Steuerzeichen weg
+ #########################
+ tr -d '[:cntrl:]' <in >out loescht wirklich *alle* control characters,
+
+
+ #########################
+ Kanal-Manipulationen
+ #########################
+ exec 5<&0                         # stdin auf Kanal 5 verbiegen
+ exec 5<&-                         # Kanal 5 schlie¤Ô¤¹¤Ë¤¢n
+
+
+ #########################
+ Variable anhand Trennzeichen in einzelne Variablen zerlegen
+ #########################
+ VAR1="ejhrhwegr-werwerwerwerwerwer-werwerwerwerwerwer-werkhwer"
+ echo $VAR1 | sed 's/-/ /g' | read Var2 Var3 Var4
+
+
+ #########################
+ POST REQUEST data in Shell to webpage
+ #########################
+ echo "uid=${uid} &pwd=${pwd} &sid=${sid} &---" | lynx -post_data http://blender/~oracle/cgi-bin/insert-record.cgi
+
+
+ #########################
+ telnet via script
+ #########################
+
+ #!/usr/bin/expect
+ spawn telnet mail.provider.de 110
+ expect "*OK*"
+ send "USER your_name\r" 
+ expect "*Password*"
+ send "PASS top_secret\r"
+ expect "*your_name*"
+ send "quit\r"
+ exit
+
+
+ #########################
+ Mail Attachments
+ #########################
+
+ From: bot
+ To: rcpt
+ Subject: $subject
+ Content-type: application/octet-stream; name="$attachment";
+ Content-disposition: attachment
+ Content-transfer-encoding: base64
+ $attachment
+ EOD
+
+ ... cat $mailfile | /usr/lib/sendmail -t -n
+
+ Wie kann ich mit einem Kommandozeilenprogramm Mails mit MIME-Attachment verschicken?
+ *	mutt -s "Anhang" -a Datei email@adresse < /dev/null
+ *	mpack -s "Anhang" Datei email@adresse
+ *	nail -s "Anhang" -a Datei email@adresse < /dev/null
+ *	metasend -b -s "Anhang" -f Datei -t email@adresse -m application/octet-stream
+ *	uuenview -b -s "Anhang" -m email@adresse Datei
+
+ echo $1 | mutt -a $1 uli.hitzel@gmx.de -s $1
+
+
+ ###############################
+ MUTT: Mailclient
+ ###############################
+ mutt -f imap://3116711@imap.gmx.net
+
+ $HOME/.muttrc
+
+ #set realname = "hallo babo"
+ #set imap_user=maik
+ #set imap_pass=<geheim>
+ my_hdr From:<uli.hitzel@gmx.de>
+
+
+ ###############################
+ Zeichen durch NEWLINE ersetzen
+ ###############################
+
+ perl -e '$I="123"; $I=~s/2/\n/; print $I'
+
+ Pattern Umbruch ersetzen, SUB-FUNC in sed: f�r alle Zeilen die ef enthalten folgendes ersetzen!!
+
+ (
+ echo 'abc\ndef\nghi\njkl' | sed '/ef$/{N; s/ef\ngh/XYZ/;}'
+
+ In allen Zeilen die "Weiter zu" enthalten am Ende den Zeilenumbruch weg:
+ cat $docs/functions/carview/D/DL/DLC/DLCE/DLCE01/dlce01.hbs | sed '/Weiter zu/{N; s/\n//;}'
+
+ ###############################
+ Erste Zeile l�schen
+ ###############################
+ echo "`sed -e '1d' datei`" > datei
+ echo "`sed -e '1,9d' datei`" > datei ## Zeilen 1 bis 9
+
+ ###############################
+ String in Parameter splitten
+ ###############################
+
+ bla="jhmewr werhewrwer wehjrgewr"
+ set -- $bla
+ ---> $1 $2 $3
+
+ #####################
+ UTIME
+ #####################
+ utime=`$PERL -e "print time();"`
+
+ ##########################
+ CTRL-C abfangen
+ ##########################
+
+ myexitfunc()
+ {
+ 	echo ENDE
+ 	rm $tmpfile
+ }
+
+ trap myexitfunc 2
+ while [ 1 ]
+ do
+ 	...
+
+
+ ##########################
+ CSPLIT
+ ##########################
+ csplit -n 100 -s -f outfile infile /MYSEARCHSTRING/ {3903}
+
+ csplit -k inputfile.txt "/meinsuchstring /" {10000}
+
+ ##########################
+ Bilder kombinieren mit imagemagick
+ ##########################
+ montage +frame +shadow +label -tile 3x1 -geometry 20x20+0+0 $digit1.gif $digit2.gif $digit3.gif out/$c.gif
+
+ composite -gravity NorthWest $tmpfile.jpg bf_600x400.jpg $outdir/$dest/$basefile
+ composite -gravity NorthWest in1.jpg in2.jpg outfile.jpg
+
+ ##########################
+ Bilder schwarzweiss machen mit imagemagick
+ ##########################
+ convert in.jpg -colorspace GRAY -colors 32768 out.jpg
+
+ ##########################
+ Bilder RESIZE machen mit imagemagick
+ ##########################
+ convert in.jpg -geometry 10% out.jpg
+ convert in.jpg -geometry 800x600! out.jpg
+
+ ##########################
+ Text erzeugen mit imagemagick
+ ##########################
+ convert xc:yellow -resize 200x15! blank.ppm
+ convert blank.ppm -gravity "Center" -draw "text 0,0 'Disaggregate Consulting'" textimage.jpg
+ convert -font helvetica -fill white -pointsize 48 -draw "text 10,50 '4D 2004'" bild.jpg neu.jpg
+
+
+ ##########################
+ BLOCK loeschen mit sed
+ ##########################
+ cat bla | sed '/ANFANG/,/ENDE/d'
+
+ ##########################
+ Server HEAD checken
+ ##########################
+ telnet server.de 80
+ HEAD / HTTP/1.0 und dann 2x enter
+
+ ##########################
+ chfn - Change Realname on Unix
+ ##########################
+
+ ##########################
+ chsh - Shell aendern in Unix
+ ##########################
+
+ ##########################
+ PDF erzeugen
+ ##########################
+ htmldoc --book --webpage -f output.pdf infile.html 
+
+
+ ##########################
+ Text->Image
+ ##########################
+ ls -l | pbmtext > bild.pbm
+
+ oder
+
+ ll | a2ps -B --font-size=15 -R -o out;cat out | gs -sDEVICE=jpeg -sOutputFile=bla.jpg;
+
+
+ ##########################
+ HTML-Code checken / aufraeumen:
+ ##########################
+ http://www.w3.org/People/Raggett/tidy/
+ -> http://tidy.sourceforge.net/
+
+ ##########################
+ ssh tunneling
+ ##########################
+ Von zcox den Port 80 holen auf meine lokale Maschine:8082
+ ssh zcox.de -l uli -L 8082:127.0.0.1:80
+
+ zcox meinen lokalen Port 21 schenken und auf Port 2001 legen
+ ssh zcox.de -l uli -R 2001:127.0.0.1:21
+
+ ##########################
+ putty: ssh tunneling
+ ##########################
+ Beispiel: Unix-Proxy Port 8888 unter Windows benutzen, localhost:8017
+ --> Source: 8888
+ --> Dest: localhost:8017
+ --> Local
+ ------> L8888	localhost:8017
+
+ Beispiel: Windows-Service auf Port 21 unter Unix nutzen, localhost:2123
+ --> Source: 2123
+ --> Dest: localhost:21
+ --> Remote
+ ------> R2123	localhost:21
+
+ ##########################
+ GETMAIL by telnet into pop3
+ ##########################
+ telnet pop.gmx.net 110
+ 	USER username
+ 	PASS password
+ 	list (Liste anzeigen)
+ 	top n 1 (Header von Mail n anzeigen)
+ 	retr n (Mail n anzeigen)
+ 	quit
+
+ ##########################
+ SENDMAIL by telnet into smtp
+ ##########################
+ o) GMX-Security auf POP3beforeSMTP stellen
+ o) im POP3 einloggen s.o.
+
+ telnet mail.gmx.net 25
+ --> Trying 213.165.64.20...
+ --> Connected to pop.gmx.net.
+ --> Escape character is '^]'.
+ --> 220 {mp005} GMX Mailservices ESMTP
+ mail from: thomas.astl@gmx.de
+ --> 250 {mp005} ok
+ rcpt to: uli.hitzel@gmx.de
+ --> 250 {mp005} ok
+ data
+ --> 354 {mp005} Go ahead
+ hallo
+ blub
+
+ .
+ --> 250 {mp005} Message accepted
+ quit
+ --> 221 {mp005} GMX Mailservices
+ --> Connection closed by foreign host.
+
+ ##########################
+ Files "knicken" mit fold
+ ##########################
+ cat langesfile.txt | fold -20 # jede Zeile wird 20 zeichen
+
+ ##########################
+ Multiplex Bash sessions
+ ##########################
+ screen
+
+ ##########################
+ CAT reverse Ausgabe von file
+ ##########################
+ ll | tac
+ ll | tail -r
+
+ ##########################
+ Kommazahlen in der Bash / arithmetische Ausdruecke / Rechnen
+ ##########################
+ echo 1/8 | bc -l
+
+ ##########################
+ Kommando nach x Sekunden killen
+ ##########################
+
+ altimer 10 tue_irgendwas
+
+
+ ##########################
+ MySQL: Prozesse anzeigen
+ ##########################
+ /usr/local/mysql/bin/mysqladmin -u root -p processlist
+
+ ##########################
+ MySQL: Random
+ ##########################
+ select snr from meine_tabelle order by rand() limit 1;
+
+ ##########################
+ sed: mehrere Leerzeichen handeln
+ ##########################
+ echo "1    3" | sed "s/\(  *\)//;"
+
+ ##########################
+ openssl
+ ##########################
+ SHA1 Key erzeugen
+ echo bla | openssl sha1
+
+ File blowfish encrypten
+ openssl bf -in infile.txt -out outfile.bf
+ .. decrypten
+ openssl bf -in outfile.bf -out clearfile.txt -d
+
+ ##########################
+ ALLE HTML Tags loschen
+ ##########################
+
+ cat bla.html | sed -e 's:<[bB][rR]>: :g'      -e '/</{
+ 	:loop
+ 	s/<[^>]*>//g
+ 	 /</{
+ 	     N
+ 	     b loop
+ 	 }
+      }'      -e 's:&[nN][bB][sS][pP];: :g'      -e 's:&..;::g; s:&...;::g; s:&....;::g' 
+
+ ##########################
+ Alle hrefs greppen
+ ##########################
+ egrep -i '<a[   ]+href[         ]*=[    ]*"?[^">]*"?.*>' "$@" | sed -e 's|.*<[aA][      ][      ]*[hH][rR][eE][fF][     ]*=[    ]*"*\([^">][^">]*\)"*[^>]*>.*|\1|g'
+
+ ##########################
+ htaccess: Nur fuer bestimmte Referer oder IP zulassen
+ ##########################
+ SetEnvIf Referer "^http://nur_fuer_links_von_dieser_domain.de" referer_ok
+ SetEnvIf Remote_Addr "213.20.171.182" referer_ok
+
+ Order Deny,Allow
+ Deny from all
+ Allow from env=referer_ok
+
+ ##########################
+ htaccess: http nach https
+ ##########################
+ # Wenn inbox, dann alles nach https
+ RewriteCond %{REQUEST_URI} ^/inbox.*$
+ RewriteCond %{SERVER_PORT} ^80$
+ RewriteRule ^.*$ https://%{SERVER_NAME}%{REQUEST_URI} [R,L]
+
+
+ ##########################
+ POST per bash cgi
+ ##########################
+
+ #!/bin/bash
+ echo Content-type: text/plain
+ echo
+
+ if [ "$REQUEST_METHOD" = POST ]; then
+         query=$( head --bytes="$CONTENT_LENGTH" )
+ else    
+         query="$QUERY_STRING"
+ fi      
+ echo "Content-Type: text/plain"
+ echo    
+ echo "Query=$query"
+
+ ##########################
+ relatives Datum mit (gnu)date
+ ##########################
+ date --date "3 days"
+ date --date "3 days ago"
+
+ ##########################
+ Header Redirect cgi bash
+ ##########################
+ echo -e "Location:http://www.spiegel.de\n\n";
+
+ ##########################
+ htaccess: alle Files rewriten
+ ##########################
+ RewriteEngine on
+ #ReWriteRule .*\.jpg$ /cgi-bin/rewrite.cgi
+ RewriteRule .* /cgi-bin/rewrite.cgi
+
+ ##########################
+ htaccess: Subdir to Subdomain
+ ##########################
+ Catch-All fuer *.mydomain.de nach $docs/subs
+ dort htaccess hin:
+ RewriteEngine On
+ Options +FollowSymLinks
+ RewriteBase /
+ RewriteCond %{HTTP_HOST} blubber.zcox.de
+ RewriteCond %{REQUEST_URI} !blubber/
+ RewriteRule ^(.*)$ blubber/$1 [L]
+
+ ##########################
+ fetchmail -> $HOME/.fetchmailrc
+ ##########################
+ poll pop.gmx.net protocol pop3 username "thomas.astl@gmx.de" password
+ "mypasswd"
+ poll imap.web.de protocol imap username "hitzel" password "mypassword"
+
+
+ ##########################
+ etc/aliases email
+ ##########################
+ #mail_an_user__an_prozess: "|/home/pacs/mih07/crons/mybot.sh"
+ #mail_an_user__indateischreiben: "|cat >> /home/pacs/mih07/users/wei/bla.txt"
+
+ ##########################
+ davtool: upload
+ ##########################
+ davtool http://mediacenter.1und1.de/MEINFILE2.txt -m PUT -i MEINFILE2.txt -u
+ "2035-168@onlinehome.de" -p passwort
+
+ ##########################
+ expect: ins MediaCenter connecten ohne Passworteingabe
+ ##########################
+ #!/usr/bin/expect
+
+ spawn cadaver https://mediacenter.gmx.net
+ expect "Username:"
+ send "3116711\r"
+ expect "Password:"
+ send "meinpasswd\r"
+ interact
+
+
+ ##########################
+ .htaccess: Einloggen
+ ##########################
+ order allow,deny
+ allow from all
+ require valid-user ### require user admin
+ Authname jagiya
+ Authtype Basic
+ AuthUserFile /home/pacs/mih07/etc/.htpasswd
+
+
+ ##########################
+ rsync
+ ##########################
+
+ #upload to server
+ rsync -r -v -z -t dieses_Directory username@rsync.ibackup.com::ibackup
+
+ #download
+ rsync -r -v -z -t username@rsync.ibackup.com::ibackup local_directory__destiny
+
+ z.b.:
+
+ RSYNC_PASSWORD=SECRET_PASSWD
+ export RSYNC_PASSWORD
+
+ #upload --> Server updaten
+ rsync -r -v -z -t /home/uli/secure hitzeu@rsync.ibackup.com::ibackup
+ #download --> localhost updaten
+ rsync -r -v -z -t hitzeu@rsync.ibackup.com::ibackup/secure /home/uli
+
+ ##########################
+ Freetype: TrueTypeFonts rendering from text
+ ##########################
+ ftstrpnm -b 10 -p 64 -g -c 6699ff Handwriting.ttf "bla mein Text" > tempfile
+ ppmtogif tempfile > output.gif
+
+ ##########################
+ MySQL: Bind to localhost only
+ ##########################
+ /etc/my.conf
+ [MySQLd]
+ bind-address=127.0.0.1
+
+ ##########################
+ Portscan
+ ##########################
+ netstat -pletu
+ nmap zcox.de
+ lsof -i -P
+ lsof -i tcp
+ lsof  -i :3128
+
+ fuser 80/tcp ---> prozess ID
+
+ einfach: netstat -an
+ grep PORT_number /etc/services
+
+ ##########################
+ IP-Trace
+ ##########################
+ http://www.webhits.de/visualroute/
+
+ ##########################
+ Secure FTP: sftp (putty) ueber SSH
+ ##########################
+ shell scponly = sftp geht, ssh-Login nicht
+
+ ##########################
+ wget cookie
+ ##########################
+ wget --cookies=off --header "Cookie: name=value"
+
+ ##########################
+ Arrays in Bash
+ ##########################
+ mein_array=(hallo du alte wurst)
+ echo ${mein_array[2]}
+ echo ${mein_array[*]}
+
+ ##########################
+ Webserver: Eigenes SSL-Zertifikat f�r Apache und Webmin erstellen
+ ##########################
+
+ 1. RSA Schl�ssel erstellen:
+ openssl genrsa -des3 -out server.key 1024
+ 2. Unverschl�sselte Version f�r den Apache und Webmin erstellen:
+ openssl rsa -in server.key -out server.key.unsecure
+ 3. Signierungsanfrage erstellen:
+ openssl req -new -key server.key -out server.csr
+ 4. SSL Zertifikat Signieren
+ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+ ##########################
+ GPG: Key Trust
+ ##########################
+ gpg --list-keys --with-colon 
+ ---> Long ID
+ gpg --trusted-key KEYID --update-trustdb
+
+ ##########################
+ Content-Type: download
+ ##########################
+ header("Content-Type: application/force-download");
+ header("Content-Disposition: attachment; filename=key.ppk");
+
+ ##########################
+ Maillog split
+ ##########################
+ csplit -k /var/spool/mail/$LOGNAME "/^From /" {100}
+ csplit -k /var/spool/mail/$LOGNAME "/^From /" {*}
+
+ ##########################
+ Files vergleichen
+ ##########################
+
+ cmp file1 file2
+ cmp -l file1 file2
+
+ ##########################
+ htaccess: alle draussen bleiben!
+ ##########################
+
+ Order allow,deny
+ Deny from all
+
+
+ #########################
+ wget FAKE Browser, komplette Seite laden, Cookies speichern
+ #########################
+
+ wget -p -H --cookies=ON --save-cookies=cookies.txt -U "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20040913 Firefox/0.10" "http://focus.msn.de/hps/fol/newsausgabe/newsausgabe.htm?id=8740"
+
+ ---> robots.txt NICHT ! laden
+ $HOME/.wgetrc ---> robots=off
+
+ #########################
+ htdig: merge db into another
+ #########################
+
+ htmerge -s -c /etc/htdig_das_ist_die_grosse_db_in_die_die_kleine_db_reinsoll.conf -m /etc/htdig2_das_ist_die_kleine_db.conf
+
+ #########################
+ RANDOM innerhalb Range
+ #########################
+
+ bla=$RANDOM;echo $bla;let "bla %= 21";echo $bla
+
+ #########################
+ SCREEN: mehrere Fenster aufmachen, dort irgendwas tun
+ #########################
+
+ do_show()
+ {
+ for fenster in 1 2 3
+ do
+         screen -t "MeineSession_$fenster" tail -f logfile.$fenster
+         sleep 1
+ done
+ }
+
+ if [ "$1" = "do_show" ]
+ then
+         do_show
+ else
+         screen THIS_SCRIPT.sh do_show
+ fi
+
+
+ #########################
+ netcat
+ #########################
+
+ ##Port aufmachen, Requests ausgeben
+ netcat -l -p 12345
+ netcat -l -p 1998 -e mein_server.sh
+
+ ##Script als Deaemon
+ #!/bin/bash
+ export port=${port:-$1} # inherit $1 as $port
+ nc -l -p $port -e $0 &  # await further connections on this port
+ [ $1 ]|| ./doit        # do the work (not for the first invocation)
+
+ # Seite vom Server holen
+ printf 'GET / HTTP/1.0\n\n'  | netcat -w 10 zcox.de 83
+
+ #########################
+ ngrep: Sniff
+ #########################
+ ngrep -wi -d any 'name|user|pass' port 21
+
+ ##########################
+ sed: bestimmte Zeilennummer loeschen
+ ##########################
+
+ cat infile | sed "2d"
+
+ ##########################
+ Alternative fuer $(echo bla)
+ ##########################
+
+ neu=$(sed "s/bla/blub/;" <<< $alterwert)
+
+ ##########################
+ Gnuplot: Daten zeichnen
+ ##########################
+
+ Infile: Lines wie 23.12.2004<tab>138732
+
+ --
+ set term png
+ set grid
+ set title "Titel der Grafik"
+ set xlabel "Zeit"
+ set ylabel "Wert"
+ set xdata time
+ set timefmt "m.%Y"
+ set format x "b"
+ set noborder
+ set time
+ set zeroaxis 1
+ set yzeroaxis 1
+ set offset 0,0,0,0
+ plot "input.dat" using 1:2 with lines title ""
+
+ ######################
+ Squid: nur auf localhost hoeren
+ ######################
+ http_port localhost:3128
+
+ #####################
+ sudo
+ #####################
+ uli     ALL=(ALL)       NOPASSWD: ALL
+
+ #####################
+ sftp im batch mit expect
+ #####################
+ #!/usr/bin/expect
+
+ spawn  sftp -oPort=2002 -b cmdfile_venus uli@venus.goza.net;
+ expect "uli@venus.goza.net's password: ";
+ send "mypasswordgeheim\n";
+ expect "sftp>";
+ interact;
+ exit 0;
+
+ #####################
+ Steganographie: Infos in Bildern verstecken
+ #####################
+ Einbetten:
+ steghide embed -ef geheim.txt -cf original.jpg -sf out.jpg -p bla
+
+ Suchen:
+ steghide info out.jpg
+
+ Extrahieren:
+ steghide extract -sf out.jpg -xf geheim.txt
+
+ #####################
+ openssl: Passwort
+ #####################
+
+ ll | openssl bf -pass pass:bla
+ ll | openssl bf -pass env:MY_VAR_WITH_PASSWORD
+
+ #####################
+ lsof: Unix Filehandles checken
+ #####################
+ Wer benutzt gerade die Bash?
+ lsof /usr/bin/bash
+
+ Wer arbeitet mit Dateien im /tmp-Verzeichnis?
+ lsof +D /tmp/
+
+ Welche Files hat Prozess X ge�ffnet?
+ lsof +p 3050
+
+ Welche Prozesse kommunizieren auf Port 80 miteinander?
+ lsof -i :80
+
+ #####################
+ nl: Zeilen numerieren
+ #####################
+ ls -l | nl
+
+ #####################
+ ls: Timestamp komplett ausgeben
+ #####################
+  ls -l --full-time
+
+ #####################
+ htaccess Cheat Sheet
+ #####################
+ Enable Directory Browsing
+
+ Options +Indexes
+ ## block a few types of files from showing
+ IndexIgnore *.wmv *.mp4 *.avi
+
+ Disable Directory Browsing
+
+ Options All -Indexes
+
+ Customize Error Messages
+
+ ErrorDocument 403 /forbidden.html
+ ErrorDocument 404 /notfound.html
+ ErrorDocument 500 /servererror.html 
+
+ Get SSI working with HTML/SHTML
+
+ AddType text/html .html
+ AddType text/html .shtml
+ AddHandler server-parsed .html
+ AddHandler server-parsed .shtml
+ # AddHandler server-parsed .htm
+
+ Change Default Page (order is followed!)
+
+ DirectoryIndex myhome.htm index.htm index.php
+
+ Block Users from accessing the site
+
+ <limit GET POST PUT>
+ order deny,allow
+ deny from 202.54.122.33
+ deny from 8.70.44.53
+ deny from .spammers.com
+ allow from all
+ </limit>
+
+ Allow only LAN users
+
+ order deny,allow
+ deny from all
+ allow from 192.168.0.0/24
+
+ Redirect Visitors to New Page/Directory
+
+ Redirect oldpage.html http://www.domainname.com/newpage.html
+ Redirect /olddir http://www.domainname.com/newdir/
+
+ Block Hot Linking/Bandwidth hogging
+
+ RewriteEngine on
+ RewriteCond %{HTTP_REFERER} !^$
+ RewriteCond %{HTTP_REFERER} !^http://(www\.)?mydomain.com/.*$ [NC]
+ RewriteRule \.(gif|jpg)$ - [F]
+
+ Want to show a ¤Ô�
+
+
+¤¿¤¸tealing is Bad� message too?
+Add this below the Hot Link Blocking code:
+
+ RewriteRule \.(gif|jpg)$  [R,L]
+
+ Stop .htaccess (or any other file) from being viewed
+
+ <files file-name>
+ order allow,deny
+ deny from all
+ </files>
+
+ Avoid the 500 Error
+
+ # Avoid 500 error by passing charset
+ AddDefaultCharset utf-8
+
+ Grant CGI Access in a directory
+
+ Options +ExecCGI
+ AddHandler cgi-script cgi pl
+ # To enable all scripts in a directory use the following
+ # SetHandler cgi-script
+
+ Save Bandwidth
+
+ # Only if you use PHP
+ <ifmodule mod_php4.c>
+ php_value zlib.output_compression 16386
+ </ifmodule>
+
+ ################
+ wget mirror
+ ################
+ wget -m -k -D "seite.de" --http-user=xxx --http-passwd=xxx -U "Mozilla/5.0 (Windows; U; Windows NT 5.1; de-DE; rv:1.7.12) Gecko/20050919 Firefox/1.0.7" http://seite.de
+
+ ################
+ ESC-Sequenzen ausgeben
+ ################
+ echo -e "\e[7m" ( invert )
+ echo -e "\e[0m" ( normal )
+ echo -e "\e[31;47m" ( red chars )
+
+ ################
+ .screenrc
+ ################
+ caption always "%t" ( title in der statusbar anzeigen )
+
+ ################
+ Umlaute in der Shell
+ ################
+     set convert-meta Off
+     set meta-flag On
+     set output-meta On
+
+ ###################
+ htaccess: http nach https rewrite
+ ###################
+ RewriteEngine On
+ RewriteBase /
+ RewriteCond %{SERVER_PORT} !^443
+ RewriteRule ^(.*) https://%{SERVER_NAME}/$1 [L,R]
+
+ ##########################################
+ mod_rewrite: dynamische Subdomains 
+ ##########################################
+ RewriteCond %{HTTP_HOST} !^www\.domainname\.de [NC]
+ rewriteCond %{HTTP_HOST} ([^.]*)\.domainname\.de [NC]
+ rewriteRule ^ http://www.domainname.de/%1 [R,L]
+
+ ##########################################
+ mod_rewrite: DocRoot �ndern f�r Domain
+ ##########################################
+ RewriteCond %{HTTP_HOST} test5.hitzel.net [NC]
+ RewriteCond %{REQUEST_URI} !^/test5.hitzel.net [NC]
+ RewriteRule ^(.*)$ /test5.hitzel.net/$1 [L]
+
+ ##########################################
+ lock files (e.g. kernel) so even root cannot delete them
+ ##########################################
+ # the command to 'unlock' the kernel file is 
+ chflags noschg /kernel
+ # and to 'lock' your new kernel into place
+ chflags schg /kernel
+
+ ########################################## 
+
+
+fetchmail / process incoming mails im daemon
+##########################################
+
+ fetchmail -m script.sh
+
+ # $HOME/.fetchmailrc
+ set logfile /tmp/fetchmail.log
+ set daemon 60
+ poll mail.server.com protocol pop3
+ username bla password blub
+ fetchall no keep
+
+ ##########################################
+ Utime File age / Alter eines Files
+ ##########################################
+ stat -t '%s' meinfile.txt # FreeBSD
+
+ ##########################################
+ telnet port 80 scripten
+ ##########################################
+ telnet www.site.com 80 >file 2>/dev/null < <( echo GET /index.html;  sleep 60; )
+
+ echo -e "GET /business.html HTTP/1.1\nHost:beta.uk.news.yahoo.com\n" | nc p4.eunews.ukl 80
+
+
+ ##########################################
+ SSH Hopping
+ ##########################################
+
+
+ssh can be generally hopped with ProxyCommand. eg, to hop from box-a to box-b to box-c, you could add the following lines to your ~/.ssh/config on box-a:
+	Host box-c
+	ProxyCommand ssh host-b "nc host-c 22"
+
+
+now, on box-a, you can just run "ssh box-c" (or "rsync file box-c:/blah/", etc).
+#########################################
+ Rewrite Proxy
+ #########################################
+
+ RewriteEngine  on
+
+
+RewriteRule .* http://uli.hitzel.net/$1 [P]
+##########################################
+ Apache 2 SSL
+ ##########################################
+
+
+apt-get install apache2 apache2-ssl-certificate
+Now, enable ssl: a2enmod ssl
+configure ssl: cp /etc/apache2/sites-available/default /etc/apache2/sites-available/ssl ln -s /etc/apache2/sites-available/ssl /etc/apache2/sites-enabled/ssl "/etc/apache2/sites-enabled/ssl" should look like this:
+NameVirtualHost *:443 <VirtualHost *:443> (... configure the directories too...) and "/etc/apache2/sites-enabled/default" should look like this:
+NameVirtualHost *:80 <VirtualHost *:80> (... configure the directories too...) In /etc/apache2/ports.conf, add Listen 443
+In the middle of /etc/apache2/sites-available/ssl file, insert this two lines:
+SSLEngine On SSLCertificateFile /etc/apache2/ssl/apache.pem
+#############################
+ Squid Reverse Proxy (V. 2.5)
+ #############################
+
+
+http_port 87.230.7.95:80
+adjust cache_mem, maximum_object_size and maximum_object_size_in_memory
+acl Safe_methods method GET HEAD PUT POST CONNECT acl Safe_ports port 80 http_access deny !Safe_ports http_access deny !Safe_methods
+httpd_accel_port 8080 # port of apache
+httpd_accel_host localhost # apache host
+httpd_accel_single_host on
+hierarchy_stoplist dont_cache_me_1 dont_cache_me_2 # don't cache urls with this word in it
+then Apache: expires header ExpiresActive On ExpiresByType image/gif "modification plus 7200 days"
+<Directory "/dir/server/name/public/SehrLangHaltbareFiles">
+
+
+ExpiresDefault "modification plus 3600 days"</Directory>
+############################
+ Apache: use http headers from files (prestamp)
+ ############################
+
+ # mod_asis
+
+ <Directory /web/htdocs/asis>
+    SetHandler send-as-is
+ </Directory>
+
+ ###############################
+ Apache: add footer for all html pages
+ ###############################
+ Action add-footer /cgi-bin/footer.pl
+ AddHandler add-footer .html
+
+ then parse the org file, name in $PATH_TRANSLATED
+
+ ###############################
+ ps: parent process id ausgeben
+ ###############################
+ ps --noheading -o ppid -p 23846
+
+ ###############################
+ BASH: readonly Variablen
+ ###############################
+
+ bla=3
+ readonly bla
+
+ ###############################
+ convert html to xml
+ ###############################
+ tidy -asxhtml -numeric < index.html > index.xml
+
+ ###############################
+ server cert und key erstellen
+ ###############################
+ openssl genrsa -out key.pem 1024
+ openssl req -new -key key.pem -out request.pem
+  openssl x509 -req -days 30 -in request.pem -signkey key.pem -out certificate.pem
+
+ #################################
+ netcat listen over https
+ #################################
+ nc -l 8888
+ stunnel bla.conf
+
+ conf:
+ foreground=yes
+ [https]
+ key=key.pem
+ cert=cert.pem
+ accept=localhost:443
+ connect=localhost:8888
+
+ #################################
+
+
+Random Mac-Adresse erstellen
+#################################
+
+
+MACADDR="52:54:$(dd if=/dev/urandom count=1 2>/dev/null | md5sum | sed 's/^\(..\)\(..\)\(..\)\(..\).*$/\1:\2:\3:\4/')"; echo $MACADDR
+#################################
+ dm-crypt encrypted containers
+ #################################
+
+ #### mount 
+ LOOPDEV=/dev/loop0
+ SAFE=/home/user/datensafe
+ CRYPTNAME=datensafe
+ MNT=/mnt/datensafe
+ FS=ext2
+
+ /sbin/losetup $LOOPDEV $SAFE
+ /sbin/cryptsetup create $CRYPTNAME $LOOPDEV
+ /bin/mount -t $FS /dev/mapper/$CRYPTNAME $MNT
+
+ ### umount
+
+ LOOPDEV=/dev/loop0 
+ SAFE=/home/user/datensafe 
+ CRYPTNAME=datensafe
+ MNT=/mnt/datensafe
+
+ /bin/umount $MNT
+ /sbin/cryptsetup remove $CRYPTNAME
+ /sbin/losetup -d $LOOPDEV
+
+ #################################
+ File Descriptors and processes
+ #################################
+
+ exec 3> >(zenity --notification --listen
+ echo "message: hallo" >&3
+ exec 3>&-
+
+ ###########################
+ Gnome Terminal Title ändern
+ ###########################
+ PROMPT_COMMAND='echo -ne "\033]0;Hallo $(date)\007"'
+
+
