@@ -45,6 +45,10 @@ http://192.168.1.106:4747/mjpegfeed?640x480
 Take one still image every second
 ffmpeg -r 30 -i http://192.168.1.106:4747/mjpegfeed?640x480 -vf fps=1 out%d.png
 
-##### ffmpeg HLS 
+##### ffmpeg HLS MacOS
 
 ffmpeg -re -i $ffile -vf "scale=-2:$320" -hls_flags delete_segments o.m3u8 >/dev/null 2>/dev/null
+
+`<video width="600" height="400" controls>
+<source src="http://localhost/o.m3u8" type='application/x-mpegURL' / >
+</video>`
