@@ -6,6 +6,10 @@ ffmpeg -i funfair.mp4 -vf fps=1 out%d.png
 
 ffmpeg -i rtsp://mpv.cdn3.bigCDN.com:554/bigCDN/definst/mp4:bigbuckbunnyiphone_400.mp4 -c copy -map 0 -f segment -segment_time 10 -segment_format mp4 "capture-%03d.mp4"
 
+### slide video into skills
+
+##### 5 frames per second
+ffmpeg -i video.mp4 -vf fps=5 still_%03d.png
 
 ### OSX FaceTime Camera
 
