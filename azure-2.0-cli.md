@@ -2,6 +2,9 @@
 
 ## Web Apps
 
+create a web app
+`az appservice web create -g mygroup -p myplan -n mysite`
+
 list all web apps
 
 `az appservice web list`
