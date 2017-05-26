@@ -3,8 +3,8 @@
 #### create a local Git repository from a directory
 git init
 
-git config --global user.name "Your Name"
-git config --global user.email you@example.com
+git config --global user.name "Uli Hitzel"
+git config --global user.email uli.hitzel@gmail.com
 
 
 ##### tell git command to cache your credentials so you won't have to type them each time
