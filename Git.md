@@ -10,6 +10,8 @@ git config --global user.email uli.hitzel@gmail.com
 ##### tell git command to cache your credentials so you won't have to type them each time
 git config --global credential.helper cache
 
+
+
 ##### add stuff to repo
 git add -A
 
