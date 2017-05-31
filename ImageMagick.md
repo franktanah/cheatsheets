@@ -11,7 +11,7 @@ convert -size 800x800 xc:white out.png
 `convert in.jpg -fill none -stroke red -strokewidth 3 -draw "rectangle 10,10,200,300" out.jpg `
 
 ### Compress PDF
-`convert input.pdf -compress Zip output.pdf`
+	`convert input.pdf -compress Zip output.pdf`
 
 ### Invert image
 convert in.png -negate out.png
