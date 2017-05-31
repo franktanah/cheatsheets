@@ -25,7 +25,6 @@ git remote add azure https://me@myserver.com:443/repo.git
 ##### push local repo to azure app service
 git push origin master
 
-
 ##### Delete *everything* on a remote Git repository
 
 mkdir empty; cd empty
