@@ -1,5 +1,10 @@
 # AWS Commandline
 
+## E2
+
+list instances
+
+`aws ec2 describe-instances --region=ap-southeast-1`
 ## S3
 
 copy file
