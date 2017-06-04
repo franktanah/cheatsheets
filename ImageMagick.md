@@ -42,6 +42,10 @@ convert $d -geometry 200x200 -gravity center -background black +polaroid polaroi
 
 convert -delay 20 -loop 0 frame*gif animated.gif
 
+### Add Watermark Text to Image
+
+convert bla.png -pointsize 50 -font Arial -fill "rgba(0,0,0,0.4)" -gravity center -annotate +0+0 "Geekery" bla2.png
+
 ### OSX imagesnap (with brew)
 
 #### take one
