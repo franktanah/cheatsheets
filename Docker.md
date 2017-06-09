@@ -7,4 +7,4 @@
 `docker-machine env dockerhost`
 
 ## AWS
-`docker-machine create --driver amazonec2 --amazonec2-access-key AKI******* --amazonec2-secret-key 8T93C*******  --amazonec2-zone ap-southeast-1 aws-sandbox`
+`docker-machine create --driver amazonec2 --amazonec2-region eu-central-1 --amazonec2-zone docker01`
