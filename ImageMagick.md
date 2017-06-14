@@ -46,6 +46,9 @@ convert -delay 20 -loop 0 frame*gif animated.gif
 
 convert -coalesce brocoli.gif out%05d.pgm
 
+### Remove transparency
+
+convert -flatten -background white in.png out.png
 
 
 ### Add Watermark Text to Image
