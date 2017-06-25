@@ -1,4 +1,4 @@
-
+# Some of this stuff is outdated. Use with care.
 
  crypt <xfile key > clearfile
 
