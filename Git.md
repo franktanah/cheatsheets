@@ -41,7 +41,7 @@ git push --force --set-upstream origin master
 
 ##### Backdate a commit to reflect correct time
 
-git commit --allow-empty --date="Apr 14 14:00 2017 +0100" -m '2commit'
+git commit --allow-empty --date="Apr 14 14:00 2017 +0100" -m 'commit'
 
 
 
