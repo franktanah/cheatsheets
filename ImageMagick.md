@@ -63,3 +63,9 @@ imagesnap -w 1 snapshot.png
 #### take one every second
 imagesnap -t 1 -w 1
 
+#### Create fixed size thumbnails for all pics and put them in a 'thumbs' subdirectory
+
+mogrify -resize 150x150 -background white -gravity center -extent 80x80 -format jpg -quality 75 -path thumbs *.jpg
+
+
+
