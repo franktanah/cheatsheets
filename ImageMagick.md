@@ -50,7 +50,6 @@ convert -coalesce brocoli.gif out%05d.pgm
 
 convert -flatten -background white in.png out.png
 
-
 ### Add Watermark Text to Image
 
 convert bla.png -pointsize 50 -font Arial -fill "rgba(0,0,0,0.4)" -gravity center -annotate +0+0 "Geekery" bla2.png
