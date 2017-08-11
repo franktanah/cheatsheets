@@ -15,5 +15,5 @@
 
 ## Get Host IP from within a container
 
-# apt-get install iproute2
+apt-get install iproute2
 /sbin/ip route | awk '/default/ { print $3 }'
