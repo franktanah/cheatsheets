@@ -12,3 +12,8 @@
 ## Set environment variables for a container
 
 `docker run -it -e foo=bar ubuntu bash`
+
+## Get Host IP from within a container
+
+# apt-get install iproute2
+/sbin/ip route | awk '/default/ { print $3 }'
