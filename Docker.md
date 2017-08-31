@@ -7,7 +7,7 @@
 `docker-machine env dockerhost`
 
 ## Create Docker Host on AWS
-`docker-machine create --driver amazonec2 --amazonec2-region eu-central-1 --amazonec2-zone docker01`
+`docker-machine create --driver amazonec2 --amazonec2-region eu-central-1 --amazonec2-zone a docker01`
 
 ## Set environment variables for a container
 
