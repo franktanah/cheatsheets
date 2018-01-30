@@ -64,3 +64,7 @@ ffmpeg -re -i $ffile -vf "scale=-2:$320" -hls_flags delete_segments o.m3u8 >/dev
 `<video width="600" height="400" controls>
 <source src="http://localhost/o.m3u8" type='application/x-mpegURL' / >
 </video>`
+
+##### create video from images
+
+`ffmpeg -framerate 1 -pattern_type glob -i '*.jpg' -c:v libx264 -r 30 -pix_fmt yuv420p out.mp4`
