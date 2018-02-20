@@ -68,3 +68,14 @@ ffmpeg -re -i $ffile -vf "scale=-2:$320" -hls_flags delete_segments o.m3u8 >/dev
 ##### create video from images
 
 `ffmpeg -framerate 1 -pattern_type glob -i '*.jpg' -c:v libx264 -r 30 -pix_fmt yuv420p out.mp4`
+
+##### concat mp3
+
+ffmpeg -i originalA.mp3 -f mp3 -ab 128kb -ar 44100 -ac 2 A.mp3  
+
+ffmpeg -i originalB.mp3 -f mp3 -ab 128kb -ar 44100 -ac 2 B.mp3
+
+cat A.mp3 B.mp3 > output.mp3
+
+mp3val output.mp3 -f -nb
+
