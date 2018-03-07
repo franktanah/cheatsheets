@@ -79,3 +79,8 @@ cat A.mp3 B.mp3 > output.mp3
 
 mp3val output.mp3 -f -nb
 
+##### convert mp4 to mov
+
+ffmpeg -i input_file.mp4 -acodec copy -vcodec copy -f mov output_file.mov
+
+
