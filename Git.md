@@ -43,5 +43,17 @@ git push --force --set-upstream origin master
 
 git commit --allow-empty --date="Feb 08 11:23 2017 +0100" -m 'commit'
 
+##### Branches
+
+git checkout -b new_branch
+
+git push origin new_branch
+
+git branch
+
+git push origin :new_branch # delete
+
+git clone --single-branch -b new_branch https://github.com/...
+
 
 
